@@ -10,15 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0A0D13;
-    --panel:#121826;
-    --panel-soft:#161D2C;
-    --border:#232C3D;
-    --moonlight:#ECEFF4;
-    --mist:#8C96A8;
-    --crimson:#A8253B;
-    --crimson-bright:#C53550;
-    --gold:#C7A565;
+    --ink:#0B0714;
+    --panel:#17101F;
+    --panel-soft:#1C1428;
+    --border:#2E2440;
+    --moonlight:#F1ECFA;
+    --mist:#9A8FB3;
+    --accent:#8B5CF6;
+    --accent-bright:#A78BFA;
+    --accent-glow: rgba(139, 92, 246, 0.45);
+    --gold:#D8B872;
     --display: 'Shippori Mincho', serif;
     --body: 'Inter', sans-serif;
     --mono: 'JetBrains Mono', monospace;
@@ -42,7 +43,7 @@
 
   a{ color:inherit; text-decoration:none; }
 
-  ::selection{ background:var(--crimson); color:var(--moonlight); }
+  ::selection{ background:var(--accent); color:var(--moonlight); }
 
   :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
 
@@ -71,12 +72,12 @@
     font-family:var(--mono); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
     padding:13px 24px; border-radius:2px;
     border:1px solid var(--border);
-    transition:border-color .25s ease, background-color .25s ease, transform .25s ease;
+    transition:border-color .25s ease, background-color .25s ease, transform .25s ease, box-shadow .35s ease;
     cursor:pointer;
   }
   .btn:hover{ transform:translateY(-1px); }
-  .btn--primary{ background:var(--crimson); border-color:var(--crimson); color:var(--moonlight); }
-  .btn--primary:hover{ background:var(--crimson-bright); border-color:var(--crimson-bright); }
+  .btn--primary{ background:var(--accent); border-color:var(--accent); color:var(--moonlight); box-shadow:0 0 0 0 var(--accent-glow); }
+  .btn--primary:hover{ background:var(--accent-bright); border-color:var(--accent-bright); box-shadow:0 0 26px 4px var(--accent-glow); }
   .btn--ghost{ background:transparent; color:var(--moonlight); }
   .btn--ghost:hover{ border-color:var(--gold); color:var(--gold); }
   .btn svg{ width:14px; height:14px; }
@@ -86,6 +87,13 @@
     position:relative; overflow:hidden;
     padding:120px 0 96px;
     border-bottom:1px solid var(--border);
+  }
+  .hero::before{
+    content:''; position:absolute; z-index:0; pointer-events:none;
+    top:-220px; left:50%; transform:translateX(-50%);
+    width:900px; height:560px;
+    background:radial-gradient(closest-side, var(--accent-glow), transparent 70%);
+    opacity:0.5;
   }
   .hero__bg{
     position:absolute; inset:0; z-index:0; pointer-events:none;
@@ -114,7 +122,7 @@
     color:var(--mist);
     transition:color .4s ease, text-shadow .4s ease;
   }
-  .hero__kanji:hover{ color:var(--gold); text-shadow:0 0 24px rgba(199,165,101,0.35); }
+  .hero__kanji:hover{ color:var(--gold); text-shadow:0 0 26px rgba(216,184,114,0.4); }
   .hero__gloss{
     font-family:var(--body); font-style:italic; font-weight:300;
     font-size:14px; color:var(--mist); margin-top:6px;
@@ -147,9 +155,9 @@
   .banner-slash{
     position:absolute; top:38px; right:-90px; z-index:2;
     width:340px; padding:7px 0; text-align:center;
-    background:linear-gradient(90deg, var(--crimson), var(--crimson-bright));
+    background:linear-gradient(90deg, var(--accent), var(--accent-bright));
     transform:rotate(35deg);
-    box-shadow:0 8px 30px rgba(168,37,59,0.35);
+    box-shadow:0 8px 34px rgba(139,92,246,0.45);
   }
   .banner-slash span{
     font-family:var(--mono); font-size:11px; letter-spacing:0.3em; text-transform:uppercase;
@@ -283,7 +291,11 @@
   /* ---------- FOOTER ---------- */
   .footer{ padding:40px 0; text-align:center; }
   .footer__motto{ font-family:var(--display); color:var(--mist); font-size:14px; font-style:italic; }
-  .footer__copy{ font-family:var(--mono); color:#566077; font-size:11px; margin-top:10px; letter-spacing:0.05em; }
+  .footer__copy{ font-family:var(--mono); color:#5C5270; font-size:11px; margin-top:10px; letter-spacing:0.05em; }
+  .footer__legal{
+    font-family:var(--body); color:#564E68; font-size:11px; margin-top:14px;
+    max-width:52ch; margin-inline:auto; line-height:1.6;
+  }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:760px){
@@ -325,10 +337,10 @@
   <header class="hero">
     <div class="hero__bg" aria-hidden="true">
       <svg width="100%" height="100%" viewBox="0 0 1100 560" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; opacity:0.5;">
-        <circle class="ripple" cx="860" cy="120" r="10" fill="none" stroke="#C7A565" stroke-width="1"/>
-        <circle class="ripple ripple--2" cx="860" cy="120" r="10" fill="none" stroke="#C7A565" stroke-width="1"/>
-        <circle class="ripple ripple--3" cx="860" cy="120" r="10" fill="none" stroke="#C7A565" stroke-width="1"/>
-        <path d="M780 70 a50 50 0 1 0 0.1 0 a40 40 0 1 1 -0.1 0 Z" fill="#161D2C" stroke="#C7A565" stroke-width="0.6" opacity="0.7"/>
+        <circle class="ripple" cx="860" cy="120" r="10" fill="none" stroke="#8B5CF6" stroke-width="1"/>
+        <circle class="ripple ripple--2" cx="860" cy="120" r="10" fill="none" stroke="#8B5CF6" stroke-width="1"/>
+        <circle class="ripple ripple--3" cx="860" cy="120" r="10" fill="none" stroke="#8B5CF6" stroke-width="1"/>
+        <path d="M780 70 a50 50 0 1 0 0.1 0 a40 40 0 1 1 -0.1 0 Z" fill="#1C1428" stroke="#D8B872" stroke-width="0.6" opacity="0.8"/>
       </svg>
     </div>
 
@@ -443,7 +455,7 @@
 
       <div class="ranks">
         <div class="rank-card reveal">
-          <svg class="rank-card__mark" viewBox="0 0 36 36" fill="none" stroke="#C7A565" stroke-width="1.4"><path d="M18 3 L33 18 L18 33 L3 18 Z"/></svg>
+          <svg class="rank-card__mark" viewBox="0 0 36 36" fill="none" stroke="#D8B872" stroke-width="1.4"><path d="M18 3 L33 18 L18 33 L3 18 Z"/></svg>
           <div class="rank-card__body">
             <div class="rank-card__title">Vanguard Commander</div>
             <div class="rank-card__desc">Sets war strategy, approves alliances, has final say on every war.</div>
