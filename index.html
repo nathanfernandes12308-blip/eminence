@@ -100,6 +100,60 @@
   }
   .hero__content{ position:relative; z-index:1; }
 
+  .hero__grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+
+  .eye-container{
+    position:relative; width:100%; max-width:280px; margin-inline:auto;
+  }
+
+  .eye-svg{
+    filter:drop-shadow(0 0 30px rgba(139, 92, 246, 0.6));
+  }
+
+  .eye-glow{
+    position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 50%, transparent 100%);
+    border-radius:50%;
+    animation:pulseGlow 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+
+  @keyframes pulseGlow{
+    0%, 100%{ opacity:0.5; }
+    50%{ opacity:1; }
+  }
+
+  .iris{ animation:irisOpen 2s ease-in-out forwards; }
+  .eyelid-top{ animation:eyelidTopOpen 2s ease-in-out forwards; }
+  .eyelid-bottom{ animation:eyelidBottomOpen 2s ease-in-out forwards; }
+  .pupil{ animation:pupilExpand 2s ease-in-out forwards; }
+  .light-reflex{ animation:reflexAppear 2s ease-in-out forwards; }
+
+  @keyframes eyelidTopOpen{
+    0%{ transform:translateY(0); }
+    100%{ transform:translateY(-60px); }
+  }
+  @keyframes eyelidBottomOpen{
+    0%{ transform:translateY(0); }
+    100%{ transform:translateY(60px); }
+  }
+  @keyframes irisOpen{
+    0%{ opacity:0; }
+    100%{ opacity:1; }
+  }
+  @keyframes pupilExpand{
+    0%{ r:10; }
+    100%{ r:18; }
+  }
+  @keyframes reflexAppear{
+    0%{ opacity:0; }
+    50%{ opacity:0; }
+    100%{ opacity:1; }
+  }
+
   .eyebrow{
     font-family:var(--mono); font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
     color:var(--gold); margin-bottom:22px; display:flex; align-items:center; gap:10px;
@@ -302,6 +356,7 @@
     .about__grid{ grid-template-columns:1fr; }
     .banner-slash{ display:none; }
     .hero{ padding:90px 0 64px; }
+    .hero__grid{ grid-template-columns:1fr; gap:40px; }
     .rank-card{ flex-direction:column; align-items:flex-start; gap:14px; }
     .war-teams__watermark{ font-size:160px; top:-10px; }
   }
@@ -326,7 +381,7 @@
 
   <nav class="nav">
     <div class="nav__inner">
-      <div class="nav__mark"><strong>Eminence Vanguard</strong> ┃ 鏡花水月</div>
+      <div class="nav__mark"><strong>Hogyoku Vanguard</strong> ┃ 鏡花水月</div>
       <a class="btn btn--ghost" href="#join">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H7l-3 3V4z"/></svg>
         Join Discord
@@ -347,20 +402,77 @@
     <div class="banner-slash" aria-hidden="true"><span>Vanguard at War</span></div>
 
     <div class="wrap hero__content">
-      <div class="eyebrow">Global War Record</div>
-      <h1 class="hero__title">Eminence Vanguard</h1>
-      <span class="hero__kanji">鏡花水月</span>
-      <span class="hero__gloss">flower in the mirror, moon on the water — beauty too fine to hold</span>
+      <div class="hero__grid">
+        <!-- Eye Animation Section -->
+        <div class="eye-container">
+          <div class="eye-glow"></div>
+          <svg class="eye-svg" width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="irisGradient" cx="40%" cy="40%">
+                <stop offset="0%" style="stop-color:#D8B872;stop-opacity:0.9" />
+                <stop offset="30%" style="stop-color:#8B5CF6;stop-opacity:0.7" />
+                <stop offset="70%" style="stop-color:#4a2d6f;stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:#1a0f3f;stop-opacity:1" />
+              </radialGradient>
+              <radialGradient id="pupilGlow" cx="35%" cy="35%">
+                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#1a0f3f;stop-opacity:1" />
+              </radialGradient>
+            </defs>
 
-      <p class="hero__tagline">
-        We built a server around that tension: discipline sharp enough for ranked combat,
-        and a community patient enough to notice what's worth protecting. Five war teams,
-        one unbroken claim to the top.
-      </p>
+            <ellipse cx="140" cy="140" rx="98" ry="84" fill="#1a1a2e" stroke="#8B5CF6" stroke-width="1.5"/>
 
-      <div class="hero__cta">
-        <a class="btn btn--primary" href="https://discord.gg/9bGTMher8b">Enter the Vanguard</a>
-        <a class="btn btn--ghost" href="#war-teams">Meet the war teams</a>
+            <circle class="iris" cx="140" cy="140" r="49" fill="url(#irisGradient)" opacity="0.9"/>
+
+            <circle cx="140" cy="140" r="49" fill="none" stroke="#D8B872" stroke-width="0.8" opacity="0.4"/>
+            <circle cx="140" cy="140" r="46" fill="none" stroke="#8B5CF6" stroke-width="0.5" opacity="0.3"/>
+
+            <circle class="pupil" cx="140" cy="140" r="10" fill="url(#pupilGlow)"/>
+            <circle cx="140" cy="140" r="8" fill="#000a1a" opacity="0.95"/>
+
+            <ellipse class="light-reflex" cx="133" cy="130" rx="8" ry="10" fill="#ffffff" opacity="0"/>
+
+            <path class="eyelid-top" d="M 42 140 Q 140 56 238 140" fill="#0f0a15" stroke="#2E2440" stroke-width="2"/>
+            <path class="eyelid-bottom" d="M 42 140 Q 140 224 238 140" fill="#0f0a15" stroke="#2E2440" stroke-width="2"/>
+
+            <g opacity="0.6">
+              <circle cx="105" cy="105" r="2" fill="#8B5CF6">
+                <animate attributeName="r" values="2;4;2" dur="2s" begin="0s" />
+              </circle>
+              <circle cx="175" cy="112" r="1.5" fill="#D8B872">
+                <animate attributeName="r" values="1.5;3;1.5" dur="2s" begin="0.3s" />
+              </circle>
+              <circle cx="196" cy="154" r="1" fill="#A78BFA">
+                <animate attributeName="r" values="1;2.5;1" dur="2s" begin="0.6s" />
+              </circle>
+              <circle cx="98" cy="196" r="1.5" fill="#D8B872">
+                <animate attributeName="r" values="1.5;3;1.5" dur="2s" begin="0.9s" />
+              </circle>
+              <circle cx="168" cy="203" r="1" fill="#8B5CF6">
+                <animate attributeName="r" values="1;2;1" dur="2s" begin="1.2s" />
+              </circle>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Text Content Section -->
+        <div>
+          <div class="eyebrow">Global War Record</div>
+          <h1 class="hero__title">Hogyoku Vanguard</h1>
+          <span class="hero__kanji">鏡花水月</span>
+          <span class="hero__gloss">flower in the mirror, moon on the water — beauty too fine to hold</span>
+
+          <p class="hero__tagline">
+            We built a server around that tension: discipline sharp enough for ranked combat,
+            and a community patient enough to notice what's worth protecting. Five war teams,
+            one unbroken claim to the top.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="https://discord.gg/9bGTMher8b">Enter the Vanguard</a>
+            <a class="btn btn--ghost" href="#war-teams">Meet the war teams</a>
+          </div>
+        </div>
       </div>
 
       <div class="stats">
@@ -377,7 +489,7 @@
       <h2 class="section__heading">Not a guild that waits for war.</h2>
       <div class="about__grid">
         <p>
-          <strong>Eminence Vanguard</strong> carries two halves on purpose. 鏡花水月 is the old phrase
+          <strong>Hogyoku Vanguard</strong> carries two halves on purpose. 鏡花水月 is the old phrase
           for something too fine to hold — a reflection, a season, a rank. <strong>Vanguard</strong> is
           the line that holds it anyway. Everything we run, our drafting, our rosters, our war calendar,
           exists to keep both halves true at once.
@@ -531,8 +643,8 @@
   </section>
 
   <footer class="footer">
-    <div class="footer__motto">Eminence Vanguard ┃ 鏡花水月 — held, not given.</div>
-    <div class="footer__copy">© EMINENCE VANGUARD — GLOBAL WAR RECORD MAINTAINED EACH SEASON</div>
+    <div class="footer__motto">Hogyoku Vanguard ┃ 鏡花水月 — held, not given.</div>
+    <div class="footer__copy">© HOGYOKU VANGUARD — GLOBAL WAR RECORD MAINTAINED EACH SEASON</div>
   </footer>
 
 <script>
